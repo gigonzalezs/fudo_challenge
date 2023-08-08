@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:fudo_challenge/config.dart';
-
 import 'home_controller.dart';
+import 'home_scaffold.dart';
 
 class HomePage extends StatelessWidget {
   final HomeController controller;
@@ -11,10 +11,11 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    controller.context = context;
-    return Scaffold(
-      appBar: _appbar,
-      bottomNavigationBar: _navigator,
+    return HomeScaffoldBuilder(
+        appBar: _appbar,
+        usersBuilder:  (ctx, s) => const Text('users'),
+        postsBuilder: (ctx, s) => const Text('posts'),
+        bottomNavigationBarBuilder: (ctx) => _navigator(ctx),
     );
   }
 
@@ -22,8 +23,8 @@ class HomePage extends StatelessWidget {
     title: Text(appName),
   );
 
-  BottomNavigationBar get _navigator => BottomNavigationBar(
-    onTap: controller.onNavigatorTap,
+  BottomNavigationBar _navigator(BuildContext context) => BottomNavigationBar(
+    onTap: (index) => controller.onNavigatorTap(context, index),
     items: const <BottomNavigationBarItem>[
       BottomNavigationBarItem(
         icon: Icon(Icons.account_circle),
