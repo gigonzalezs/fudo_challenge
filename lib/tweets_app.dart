@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:fudo_challenge/pages/login/login_page.dart';
-import 'package:fudo_challenge/pages/home/home_page.dart';
+import 'package:fudo_challenge/pages/page_builder.dart';
 
 import 'config.dart';
 
@@ -19,8 +18,8 @@ class TweetsApp extends StatelessWidget {
       ),
       initialRoute: loginRoute,
       routes: {
-        homeRoute: (_) => const HomePage(),
-        loginRoute: (_) => const LoginPage()
+        homeRoute: (_) => PageBuilder.buildHomePage(),
+        loginRoute: (_) => PageBuilder.buildLoginPage()
       },
     );
   }
