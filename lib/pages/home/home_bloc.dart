@@ -8,15 +8,4 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
     on<ShowUsersEvent>((event, emit) => emit(UsersState()));
     on<ShowPostsEvent>((event, emit) => emit(PostsState()));
   }
-
-  @override
-  Stream<HomePageState> mapEventToState(HomePageEvent event) async* {
-    print ("event received: $event");
-    if (event is ShowUsersEvent) {
-      yield UsersState();
-
-    } else if (event is ShowPostsEvent) {
-      yield PostsState();
-    }
-  }
 }
