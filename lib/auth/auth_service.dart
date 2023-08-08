@@ -3,7 +3,7 @@
 class AuthService {
   static final AuthService _singleton = AuthService._internal();
 
-  bool _isAuthenticated = false;
+  bool _isAuthenticated = true;
 
   bool get isAuthenticated => _isAuthenticated;
 
