@@ -10,13 +10,14 @@ typedef PostsStateWidgetBuilder = Widget Function(BuildContext, PostsState);
 typedef BottomNavigationBarBuilder = BottomNavigationBar Function(BuildContext);
 
 class HomeScaffoldBuilder extends StatelessWidget {
+  final HomePageBloc bloc;
   final AppBar appBar;
   final BottomNavigationBarBuilder bottomNavigationBarBuilder;
   final UsersStateWidgetBuilder usersBuilder;
   final PostsStateWidgetBuilder postsBuilder;
 
   const HomeScaffoldBuilder(
-      {super.key,
+      {super.key, required this.bloc,
       required this.appBar,
       required this.bottomNavigationBarBuilder,
       required this.usersBuilder,
@@ -25,7 +26,7 @@ class HomeScaffoldBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (_) => HomePageBloc(),
+        create: (_) => bloc,
         child: _HomeScaffoldContentBuilder(
           appBar: appBar,
           bottomNavigationBarBuilder: bottomNavigationBarBuilder,

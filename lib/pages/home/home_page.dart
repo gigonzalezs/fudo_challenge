@@ -1,17 +1,20 @@
 
 import 'package:flutter/material.dart';
 import 'package:fudo_challenge/config.dart';
-import 'home_controller.dart';
+import 'home_bloc.dart';
 import 'home_scaffold.dart';
 
 class HomePage extends StatelessWidget {
-  final HomeController controller;
+  final HomePageBloc bloc;
 
-  const HomePage({super.key, required this.controller});
+  const HomePage({super.key,
+    required this.bloc
+  });
 
   @override
   Widget build(BuildContext context) {
     return HomeScaffoldBuilder(
+        bloc: bloc,
         appBar: _appbar,
         usersBuilder:  (ctx, s) => const Text('users'),
         postsBuilder: (ctx, s) => const Text('posts'),
@@ -24,7 +27,7 @@ class HomePage extends StatelessWidget {
   );
 
   BottomNavigationBar _navigator(BuildContext context) => BottomNavigationBar(
-    onTap: (index) => controller.onNavigatorTap(context, index),
+    onTap: context.bloc.onNavigatorTap,
     items: const <BottomNavigationBarItem>[
       BottomNavigationBarItem(
         icon: Icon(Icons.account_circle),
