@@ -16,6 +16,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bloc.start();
     return HomeScaffoldBuilder(
         bloc: bloc,
         appBar: _appbar,

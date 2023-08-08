@@ -31,15 +31,19 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
     emit(PostsState());
   }
 
-  final _events = {
+  final _eventByTabIndex = {
     0: () => ShowUsersEvent(),
     1: () => ShowPostsEvent()
   };
 
   Future onNavigatorTap(int index) async {
     print('navigator tap: $index');
-    final HomePageEvent event = _events[index]!();
+    final HomePageEvent event = _eventByTabIndex[index]!();
     print("adding event: $event");
     add(event);
+  }
+
+  Future start() async {
+    add(ShowUsersEvent());
   }
 }
