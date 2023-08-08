@@ -6,22 +6,15 @@ import 'home_bloc.dart';
 
 class HomeController {
 
+  final events = {
+    0: () => ShowUsersEvent(),
+    1: () => ShowPostsEvent()
+  };
+
   Future onNavigatorTap(BuildContext context, int index) async {
     print('navigator tap: $index');
     final bloc = BlocProvider.of<HomePageBloc>(context);
-    late final HomePageEvent event;
-    switch (index) {
-      case 0:
-        {
-          event = ShowUsersEvent();
-          break;
-        }
-      case 1:
-        {
-          event = ShowPostsEvent();
-          break;
-        }
-    }
+    final HomePageEvent event = events[index]!();
     print("adding event: $event");
     bloc.add(event);
   }
