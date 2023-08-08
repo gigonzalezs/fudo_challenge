@@ -2,19 +2,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../framework/bloc_self_provider_builder.dart';
 import 'home_bloc.dart';
+import 'home_events.dart';
 import 'home_states.dart';
 
-typedef UsersStateWidgetBuilder = Widget Function(BuildContext, UsersState);
-typedef PostsStateWidgetBuilder = Widget Function(BuildContext, PostsState);
 typedef BottomNavigationBarBuilder = BottomNavigationBar Function(BuildContext);
 
 class HomeScaffoldBuilder extends StatelessWidget {
   final HomePageBloc bloc;
   final AppBar appBar;
   final BottomNavigationBarBuilder bottomNavigationBarBuilder;
-  final UsersStateWidgetBuilder usersBuilder;
-  final PostsStateWidgetBuilder postsBuilder;
+  final BlocWidgetBuilder<UsersState> usersBuilder;
+  final BlocWidgetBuilder<PostsState> postsBuilder;
 
   const HomeScaffoldBuilder(
       {super.key, required this.bloc,
@@ -25,46 +25,21 @@ class HomeScaffoldBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (_) => bloc,
-        child: _HomeScaffoldContentBuilder(
-          appBar: appBar,
-          bottomNavigationBarBuilder: bottomNavigationBarBuilder,
-          usersBuilder: usersBuilder,
-          postsBuilder: postsBuilder,
-        )
-    );
-  }
-}
-
-class _HomeScaffoldContentBuilder extends StatelessWidget {
-  final AppBar appBar;
-  final BottomNavigationBarBuilder bottomNavigationBarBuilder;
-  final UsersStateWidgetBuilder usersBuilder;
-  final PostsStateWidgetBuilder postsBuilder;
-
-  const _HomeScaffoldContentBuilder(
-      {super.key,
-      required this.appBar,
-      required this.bottomNavigationBarBuilder,
-      required this.usersBuilder,
-      required this.postsBuilder});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<HomePageBloc, HomePageState>(
+    return BlocSelfProviderBuilder<HomePageBloc, HomePageState>(
+      bloc: bloc,
       builder: (BuildContext ctx, HomePageState state) {
         return Scaffold(
             appBar: appBar,
             bottomNavigationBar: bottomNavigationBarBuilder(ctx),
             body: _buildBodyForState(ctx, state, usersBuilder, postsBuilder)
         );
-      },
+      }
     );
   }
 
   Widget _buildBodyForState(BuildContext context, HomePageState state,
-      UsersStateWidgetBuilder usersBuilder, PostsStateWidgetBuilder postsBuilder) {
+      BlocWidgetBuilder<UsersState> usersBuilder,
+      BlocWidgetBuilder<PostsState> postsBuilder) {
     switch (state.runtimeType) {
       case PostsState:
         {

@@ -1,10 +1,11 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fudo_challenge/config.dart';
 import 'package:fudo_challenge/pages/home/home_states.dart';
 import 'package:fudo_challenge/pages/home/widgets/user_list.dart';
-import '../../users/user.dart';
 import 'home_bloc.dart';
+
 import 'home_scaffold.dart';
 
 class HomePage extends StatelessWidget {
@@ -31,7 +32,7 @@ class HomePage extends StatelessWidget {
   );
 
   BottomNavigationBar _navigator(BuildContext context) => BottomNavigationBar(
-    onTap: context.bloc.onNavigatorTap,
+    onTap: context.read<HomePageBloc>().onNavigatorTap,
     items: const <BottomNavigationBarItem>[
       BottomNavigationBarItem(
         icon: Icon(Icons.account_circle),

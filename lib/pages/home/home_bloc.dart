@@ -5,12 +5,6 @@ import 'package:fudo_challenge/pages/home/home_states.dart';
 
 import '../../users/users_service.dart';
 
-extension HomePageBlocLookup on BuildContext {
-  HomePageBloc get bloc {
-   return BlocProvider.of<HomePageBloc>(this);
-  }
-}
-
 class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
   final UserService userService;
 
