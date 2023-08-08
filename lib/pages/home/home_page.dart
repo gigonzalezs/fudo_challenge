@@ -1,6 +1,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:fudo_challenge/config.dart';
+import 'package:fudo_challenge/pages/home/home_states.dart';
+import 'package:fudo_challenge/pages/home/widgets/user_list.dart';
+import '../../users/user.dart';
 import 'home_bloc.dart';
 import 'home_scaffold.dart';
 
@@ -16,8 +19,8 @@ class HomePage extends StatelessWidget {
     return HomeScaffoldBuilder(
         bloc: bloc,
         appBar: _appbar,
-        usersBuilder:  (ctx, s) => const Text('users'),
-        postsBuilder: (ctx, s) => const Text('posts'),
+        usersBuilder: _usersPageBuilder,
+        postsBuilder: _postsPageBuilder,
         bottomNavigationBarBuilder: (ctx) => _navigator(ctx),
     );
   }
@@ -39,4 +42,9 @@ class HomePage extends StatelessWidget {
       ),
     ],
   );
+
+  Widget _usersPageBuilder(BuildContext context, UsersState state) =>
+      UserList(state: state);
+
+  Widget _postsPageBuilder(BuildContext context, PostsState state) => const Text('posts');
 }

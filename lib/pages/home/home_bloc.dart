@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fudo_challenge/pages/home/home_events.dart';
 import 'package:fudo_challenge/pages/home/home_states.dart';
 
+import '../../users/users_service.dart';
+
 extension HomePageBlocLookup on BuildContext {
   HomePageBloc get bloc {
    return BlocProvider.of<HomePageBloc>(this);
@@ -10,13 +12,19 @@ extension HomePageBlocLookup on BuildContext {
 }
 
 class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
-  HomePageBloc() : super(UsersState()) {
+  final UserService userService;
+
+  HomePageBloc({
+    required this.userService
+  }) : super(UsersState.empty()) {
     on<ShowUsersEvent>(_onShowUsersEvent);
     on<ShowPostsEvent>(_onShowPostsEvent);
   }
 
   void _onShowUsersEvent(ShowUsersEvent event, Emitter emit) {
-    emit(UsersState());
+    emit(UsersState(
+        users: userService.getUsers()
+    ));
   }
 
   void _onShowPostsEvent(ShowPostsEvent event, Emitter emit) {
