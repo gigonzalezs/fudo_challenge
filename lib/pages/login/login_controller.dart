@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:fudo_challenge/config.dart';
 
+import '../../auth/auth_service.dart';
+
 class LoginPageController {
   late final BuildContext context;
 
@@ -30,7 +32,8 @@ class LoginPageController {
   }
 
   void onSubmitAnimationCompleted() {
-    Navigator.of(context).pushReplacementNamed(homeRoute);
+    AuthService().login()
+    .then((_) => Navigator.of(context).pushReplacementNamed(homeRoute));
   }
 
   Future<String?> onRecoverPassword(String value) async {
