@@ -17,7 +17,7 @@ class Spread<T> extends StatefulWidget {
       }
     } else {
       isTyped = true;
-      typeName = T.runtimeType.toString();
+      typeName = T.toString();
     }
   }
 
@@ -38,7 +38,7 @@ class _SpreadState<T> extends State<Spread<T>> {
     });
   }
 
-  void _afterUpdateState(Subscription subscription) {
+  void _onSubscriptionCreated(Subscription subscription) {
     this.subscription = subscription;
   }
 
@@ -46,10 +46,10 @@ class _SpreadState<T> extends State<Spread<T>> {
   void initState() {
      if (widget.isTyped) {
         SpreadState().subscribeByType<T>(_updateState)
-            .then(_afterUpdateState);
+            .then(_onSubscriptionCreated);
      } else {
         SpreadState().subscribeByKey(widget.stateKey!, _updateState)
-        .then(_afterUpdateState);
+        .then(_onSubscriptionCreated);
       }
   }
 

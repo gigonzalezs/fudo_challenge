@@ -16,19 +16,18 @@ class HomePage3 extends StatelessWidget {
     return Scaffold(
         appBar: _appbar,
         bottomNavigationBar: _navigator(context),
-        body: Spread(
-          stateKey: "homeTab",
+        body: Spread<Home3PageState>(
           builder: _homeBody,
         )
     );
   }
 
-  Widget _homeBody(BuildContext context, dynamic state) {
-    switch(state) {
-      case "posts": {
+  Widget _homeBody(BuildContext context, Home3PageState? state) {
+    switch(state.runtimeType) {
+      case Posts3State: {
         return _postsPageBuilder(context);
       }
-      case "users":
+      case Users3State:
       default: {
         return _usersPageBuilder(context);
       }
@@ -62,11 +61,11 @@ class HomePage3 extends StatelessWidget {
     print('navigator tap: $index');
     switch(index) {
       case 0: {
-        SpreadState().emit(Users3State());
+        SpreadState().emit<Home3PageState>(Users3State());
         break;
       }
       case 1: {
-        SpreadState().emit(Posts3State());
+        SpreadState().emit<Home3PageState>(Posts3State());
         break;
       }
     }

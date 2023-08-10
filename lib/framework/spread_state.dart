@@ -25,7 +25,8 @@ class SpreadState {
   }
 
   void emit<T>(T state) async {
-    final stateKey = 'type:${T.runtimeType.toString()}';
+    final stateKey = 'type:${T.toString()}';
+    final list = _listeners[stateKey];
     emitKey(stateKey, state);
   }
 
@@ -52,7 +53,7 @@ class SpreadState {
   }
 
   Future<Subscription> subscribeByType<T>(void Function(T) onChange) async {
-    final stateKey = 'type:${T.runtimeType.toString()}';
+    final stateKey = 'type:${T.toString()}';
     final list = _listeners[stateKey] ?? [];
     final controller = StreamController<T>();
     controller.stream.listen(onChange);
