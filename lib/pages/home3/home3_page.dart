@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:fudo_challenge/config.dart';
 import 'package:fudo_challenge/framework/spread_state.dart';
 import '../../framework/spread_builder.dart';
+import 'home3_states.dart';
 
-class HomePage2 extends StatelessWidget {
+class HomePage3 extends StatelessWidget {
 
-  const HomePage2({super.key
+  const HomePage3({super.key
   });
 
   @override
@@ -61,11 +62,11 @@ class HomePage2 extends StatelessWidget {
     print('navigator tap: $index');
     switch(index) {
       case 0: {
-        SpreadState().emitKey("homeTab", "users");
+        SpreadState().emit(Users3State());
         break;
       }
       case 1: {
-        SpreadState().emitKey("homeTab", "posts");
+        SpreadState().emit(Posts3State());
         break;
       }
     }

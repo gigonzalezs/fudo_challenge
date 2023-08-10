@@ -15,13 +15,18 @@ class SpreadState {
     _listeners = {};
   }
 
-  void put(String stateKey, dynamic state) async {
+  void emitKey(String stateKey, dynamic state) async {
     if (!_root.containsKey(stateKey)) {
       _root.putIfAbsent(stateKey, () => state);
     } else {
       _root[stateKey] = state;
     }
     _emit(stateKey, state);
+  }
+
+  void emit<T>(T state) async {
+    final stateKey = 'type:${T.runtimeType.toString()}';
+    emitKey(stateKey, state);
   }
 
   void _emit(String stateKey, dynamic state) async {
@@ -37,9 +42,19 @@ class SpreadState {
     controller.add(state);
   }
 
-  Future<Subscription> subscribe(String stateKey, void Function(dynamic) onChange) async {
+  Future<Subscription> subscribeByKey(String stateKey, void Function(dynamic) onChange) async {
     final list = _listeners[stateKey] ?? [];
     final controller = StreamController<dynamic>();
+    controller.stream.listen(onChange);
+    list.add(controller);
+    _listeners.putIfAbsent(stateKey, () => list);
+    return Subscription._internal(stateKey, controller);
+  }
+
+  Future<Subscription> subscribeByType<T>(void Function(T) onChange) async {
+    final stateKey = 'type:${T.runtimeType.toString()}';
+    final list = _listeners[stateKey] ?? [];
+    final controller = StreamController<T>();
     controller.stream.listen(onChange);
     list.add(controller);
     _listeners.putIfAbsent(stateKey, () => list);
