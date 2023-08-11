@@ -15,6 +15,10 @@ class SpreadState {
     _listeners = {};
   }
 
+  T? get<T>(String stateName) {
+    return _root[stateName];
+  }
+
   void emit<T>(T state) async {
     final stateName = 'type:${T.toString()}';
     emitNamed(stateName, state);

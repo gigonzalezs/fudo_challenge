@@ -12,9 +12,10 @@ class HomePage4 extends StatelessWidget {
   const HomePage4({super.key
   });
 
+
   @override
   Widget build(BuildContext context) {
-
+    SpreadState().emit<Home4PageState>(Home4PageState.users);
     return Scaffold(
         appBar: _appbar,
         bottomNavigationBar: _navigator(context),

@@ -16,7 +16,7 @@ class HomePage2 extends StatelessWidget {
         appBar: _appbar,
         bottomNavigationBar: _navigator(context),
         body: Spread(
-          stateKey: "homeTab",
+          stateName: "homeTab",
           builder: _homeBody,
         )
     );

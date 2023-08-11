@@ -3,21 +3,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:fudo_challenge/framework/spread_state.dart';
 
 class Spread<T> extends StatefulWidget {
-  final String? stateKey;
+  final String? stateName;
   final Widget Function(BuildContext, T?) builder;
   late bool isTyped;
   late String typeName;
 
-  Spread({super.key, this.stateKey, required this.builder}) {
+  Spread({super.key, this.stateName, required this.builder}) {
     if (T == dynamic) {
       isTyped = false;
       typeName = "dynamic";
-      if (stateKey == null) {
-        throw 'stateKey must be specified for untyped Spread';
+      if (stateName == null) {
+        throw 'stateName must be specified for non typed Spread';
       }
     } else {
       isTyped = true;
-      typeName = T.toString();
+      typeName = 'type:${T.toString()}';
     }
   }
 
@@ -30,7 +30,19 @@ class _SpreadState<T> extends State<Spread<T>> {
   T? currentState;
   Subscription? subscription;
   @override
-  Widget build(BuildContext context) => widget.builder(context, currentState);
+  Widget build(BuildContext context) {
+    return widget.builder(context, currentState ?? _lastState);
+  }
+
+  T? get _lastState {
+    late T? state;
+    if (widget.isTyped) {
+      state = SpreadState().get(widget.typeName);
+    } else {
+      state = SpreadState().get(widget.stateName!);
+    }
+    return state;
+  }
 
   void _updateState(dynamic state) {
     setState(() {
@@ -49,7 +61,7 @@ class _SpreadState<T> extends State<Spread<T>> {
         SpreadState().subscribe<T>(_updateState)
             .then(_onSubscriptionCreated);
      } else {
-        SpreadState().subscribeNamed(widget.stateKey!, _updateState)
+        SpreadState().subscribeNamed(widget.stateName!, _updateState)
         .then(_onSubscriptionCreated);
       }
   }
