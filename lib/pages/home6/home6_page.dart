@@ -67,10 +67,12 @@ class HomePage6 extends StatelessWidget {
     switch(index) {
       case 0: {
         IncrementUsersUseCase(users: users).execute();
+        SpreadState().emit<Home6PageState>(users);
         break;
       }
       case 1: {
         IncrementPostsUseCase(posts: posts).execute();
+        SpreadState().emit<Home6PageState>(posts);
         break;
       }
     }

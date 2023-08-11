@@ -14,7 +14,7 @@ class IncrementUsersUseCase implements UseCase {
   @override
   void execute() {
     users.increment();
-    SpreadState().emit<Home6PageState>(users);
+    SpreadState().emitEntity(users);
   }
 }
 
@@ -26,6 +26,6 @@ class IncrementPostsUseCase implements UseCase {
   @override
   void execute() {
     posts.increment();
-    SpreadState().emit<Home6PageState>(posts);
+    SpreadState().emitEntity(posts);
   }
 }
