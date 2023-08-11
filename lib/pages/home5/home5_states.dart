@@ -1,7 +1,8 @@
 
 import 'package:fudo_challenge/framework/spread_state.dart';
 
-abstract class Home5PageState implements Entity {
+abstract class Home5PageState
+    implements Entity {
   final String id;
   int _count = 0;
 
