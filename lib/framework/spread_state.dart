@@ -15,8 +15,18 @@ class SpreadState {
     _listeners = {};
   }
 
-  T? get<T>(String stateName) {
-    return _root[stateName];
+  T? get<T>() {
+    final stateName = 'type:${T.toString()}';
+    return getNamed<T>(stateName);
+  }
+
+  T? getNamed<T>(String stateName) {
+    return _root[stateName] as T;
+  }
+
+  T? getEntity<T extends Entity>(String entityId) {
+    final stateName = 'entity:${T.toString()}#$entityId';
+    return getNamed<T>(stateName);
   }
 
   void emit<T>(T state) async {
@@ -31,6 +41,11 @@ class SpreadState {
       _root[stateName] = state;
     }
     _emit(stateName, state);
+  }
+
+  void emitEntity<T extends Entity>(T entity) async {
+    final stateName = 'entity:${T.toString()}#${entity.entityId}';
+    emitNamed(stateName, entity);
   }
 
   void _emit(String stateName, dynamic state) async {
@@ -65,10 +80,25 @@ class SpreadState {
     return Subscription._internal(stateName, controller);
   }
 
+  Future<Subscription> subscribeEntity<T extends Entity>(T entity, void Function(T) onChange) async {
+    final stateName = 'entity:${T.toString()}#${entity.entityId}';
+    final list = _listeners[stateName] ?? [];
+    final controller = StreamController<T>();
+    controller.stream.listen(onChange);
+    list.add(controller);
+    _listeners.putIfAbsent(stateName, () => list);
+    return Subscription._internal(stateName, controller);
+  }
+
 
   void _unSubscribe(Subscription subscription) async {
     final list = _listeners[subscription._stateName];
-    list?.remove(subscription._controller);
+    if (list != null) {
+      list.remove(subscription._controller);
+      if (list.isEmpty) {
+        _listeners.remove(subscription._stateName);
+      }
+    }
     subscription._controller.close();
   }
 }
@@ -83,4 +113,8 @@ class Subscription {
   void unSubscribe() async {
     SpreadState()._unSubscribe(this);
   }
+}
+
+abstract interface class Entity {
+  String get entityId;
 }

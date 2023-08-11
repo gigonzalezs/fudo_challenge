@@ -37,9 +37,9 @@ class _SpreadState<T> extends State<Spread<T>> {
   T? get _lastState {
     late T? state;
     if (widget.isTyped) {
-      state = SpreadState().get(widget.typeName);
+      state = SpreadState().getNamed(widget.typeName);
     } else {
-      state = SpreadState().get(widget.stateName!);
+      state = SpreadState().getNamed(widget.stateName!);
     }
     return state;
   }
