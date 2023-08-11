@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:fudo_challenge/config.dart';
 import 'package:fudo_challenge/framework/spread_state.dart';
+import 'package:fudo_challenge/pages/home6/useCases/use_cases.dart';
 import 'package:fudo_challenge/pages/home6/widgets/posts.dart';
 import 'package:fudo_challenge/pages/home6/widgets/users.dart';
 import '../../framework/spread_builder.dart';
@@ -65,13 +66,11 @@ class HomePage6 extends StatelessWidget {
     print('navigator tap: $index');
     switch(index) {
       case 0: {
-        users.increment();
-        SpreadState().emit<Home6PageState>(users);
+        IncrementUsersUseCase(users: users).execute();
         break;
       }
       case 1: {
-        posts.increment();
-        SpreadState().emit<Home6PageState>(posts);
+        IncrementPostsUseCase(posts: posts).execute();
         break;
       }
     }
