@@ -21,7 +21,7 @@ class SpreadState {
   }
 
   T? getNamed<T>(String stateName) {
-    return _root[stateName] as T;
+    return _root[stateName] as T?;
   }
 
   T? getEntity<T>(String entityId) {
