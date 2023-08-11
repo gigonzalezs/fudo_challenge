@@ -44,6 +44,7 @@ class _SpreadState<T> extends State<Spread<T>> {
 
   @override
   void initState() {
+    super.initState();
      if (widget.isTyped) {
         SpreadState().subscribeByType<T>(_updateState)
             .then(_onSubscriptionCreated);
@@ -56,5 +57,6 @@ class _SpreadState<T> extends State<Spread<T>> {
   @override
   void dispose() {
     subscription?.unSubscribe();
+    super.dispose();
   }
 }

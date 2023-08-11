@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:fudo_challenge/config.dart';
 import 'package:fudo_challenge/framework/spread_state.dart';
+import 'package:fudo_challenge/pages/home4/widgets/posts.dart';
+import 'package:fudo_challenge/pages/home4/widgets/users.dart';
 import '../../framework/spread_builder.dart';
 import 'home4_states.dart';
 
@@ -25,11 +27,13 @@ class HomePage4 extends StatelessWidget {
   Widget _homeBody(BuildContext context, Home4PageState? state) {
     switch(state) {
       case Home4PageState.posts: {
-        return _postsPageBuilder(context);
+        //return _postsPageBuilder(context);
+        return const UsersPage();
       }
       case Home4PageState.users:
       default: {
-        return _usersPageBuilder(context);
+        //return _usersPageBuilder(context);
+        return const PostsPage();
       }
     }
   }
