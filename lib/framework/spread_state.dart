@@ -24,7 +24,7 @@ class SpreadState {
     return _root[stateName] as T;
   }
 
-  T? getEntity<T extends Entity>(String entityId) {
+  T? getEntity<T>(String entityId) {
     final stateName = 'entity:${T.toString()}#$entityId';
     return getNamed<T>(stateName);
   }
@@ -81,7 +81,7 @@ class SpreadState {
   }
 
   Future<Subscription> subscribeEntity<T extends Entity>(T entity, void Function(T) onChange) async {
-    final stateName = 'entity:${T.toString()}#${entity.entityId}';
+    final stateName = 'entity:${entity.runtimeType.toString()}#${entity.entityId}';
     final list = _listeners[stateName] ?? [];
     final controller = StreamController<T>();
     controller.stream.listen(onChange);

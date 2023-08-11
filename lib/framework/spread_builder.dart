@@ -4,11 +4,13 @@ import 'package:fudo_challenge/framework/spread_state.dart';
 
 class Spread<T> extends StatefulWidget {
   final String? stateName;
+  final Entity? entity;
   final Widget Function(BuildContext, T?) builder;
-  late bool isTyped;
-  late String typeName;
+  late final bool isTyped;
+  late final bool isEntity;
+  late final String typeName;
 
-  Spread({super.key, this.stateName, required this.builder}) {
+  Spread({super.key, this.stateName, this.entity, required this.builder}) {
     if (T == dynamic) {
       isTyped = false;
       typeName = "dynamic";
@@ -18,6 +20,7 @@ class Spread<T> extends StatefulWidget {
     } else {
       isTyped = true;
       typeName = 'type:${T.toString()}';
+      isEntity = entity != null;
     }
   }
 
@@ -37,7 +40,13 @@ class _SpreadState<T> extends State<Spread<T>> {
   T? get _lastState {
     late T? state;
     if (widget.isTyped) {
-      state = SpreadState().getNamed(widget.typeName);
+      if (widget.isEntity) {
+        state = SpreadState().getEntity<T>(widget.entity!.entityId);
+
+      } else {
+        state = SpreadState().getNamed(widget.typeName);
+      }
+
     } else {
       state = SpreadState().getNamed(widget.stateName!);
     }
@@ -58,8 +67,15 @@ class _SpreadState<T> extends State<Spread<T>> {
   void initState() {
     super.initState();
      if (widget.isTyped) {
-        SpreadState().subscribe<T>(_updateState)
-            .then(_onSubscriptionCreated);
+       if (widget.isEntity) {
+         SpreadState().subscribeEntity(widget.entity!, _updateState)
+             .then(_onSubscriptionCreated);
+
+       } else {
+         SpreadState().subscribe<T>(_updateState)
+             .then(_onSubscriptionCreated);
+       }
+
      } else {
         SpreadState().subscribeNamed(widget.stateName!, _updateState)
         .then(_onSubscriptionCreated);

@@ -33,11 +33,11 @@ class HomePage5 extends StatelessWidget {
   Widget _homeBody(BuildContext context, Home5PageState? state) {
     switch(state.runtimeType) {
       case Posts5State: {
-        return Users5Page();
+        return Posts5Page(posts: posts);
       }
       case Users5State:
       default: {
-        return Posts5Page();
+        return Users5Page(users: users);
       }
     }
   }
