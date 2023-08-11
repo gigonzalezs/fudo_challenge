@@ -1,5 +1,5 @@
 
-import 'package:fudo_challenge/framework/spread_state.dart';
+import 'package:spread/entity.dart';
 
 abstract class Home5PageState
     implements Entity {

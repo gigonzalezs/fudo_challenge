@@ -1,5 +1,6 @@
 
-import '../../../framework/spread_state.dart';
+
+import 'package:spread/spread_state.dart';
 import '../home6_states.dart';
 
 abstract interface class UseCase {

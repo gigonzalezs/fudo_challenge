@@ -277,6 +277,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.10.0"
+  spread:
+    dependency: "direct main"
+    description:
+      path: "../spread"
+      relative: true
+    source: path
+    version: "0.0.1"
   stack_trace:
     dependency: transitive
     description:

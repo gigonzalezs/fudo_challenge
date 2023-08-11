@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fudo_challenge/framework/spread_builder.dart';
+import 'package:spread/spread_builder.dart';
 import 'package:fudo_challenge/users/widgets/user_list.dart';
 import 'package:fudo_challenge/users/user_states.dart';
 

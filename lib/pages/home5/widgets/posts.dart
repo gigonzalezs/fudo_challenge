@@ -1,9 +1,8 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fudo_challenge/framework/spread_builder.dart';
-
-import '../../../framework/spread_state.dart';
+import 'package:spread/spread_builder.dart';
+import 'package:spread/spread_state.dart';
 import '../home5_states.dart';
 
 class Posts5Page extends StatelessWidget {

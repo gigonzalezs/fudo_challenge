@@ -1,12 +1,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:fudo_challenge/config.dart';
-import 'package:fudo_challenge/framework/spread_state.dart';
 import 'package:fudo_challenge/pages/home6/useCases/use_cases.dart';
 import 'package:fudo_challenge/pages/home6/widgets/posts.dart';
 import 'package:fudo_challenge/pages/home6/widgets/users.dart';
-import '../../framework/spread_builder.dart';
+import 'package:spread/spread_builder.dart';
 import 'home6_states.dart';
+import 'package:spread/spread_state.dart';
 
 class HomePage6 extends StatelessWidget {
   final Users6State users = Users6State(id: 'users');

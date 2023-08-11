@@ -1,10 +1,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:fudo_challenge/config.dart';
-import 'package:fudo_challenge/framework/spread_state.dart';
 import 'package:fudo_challenge/pages/home4/widgets/posts.dart';
 import 'package:fudo_challenge/pages/home4/widgets/users.dart';
-import '../../framework/spread_builder.dart';
+import 'package:spread/spread_builder.dart';
+import 'package:spread/spread_state.dart';
 import 'home4_states.dart';
 
 class HomePage4 extends StatelessWidget {

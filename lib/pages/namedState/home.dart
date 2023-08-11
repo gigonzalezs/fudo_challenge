@@ -1,12 +1,15 @@
 
 import 'package:flutter/material.dart';
-import 'package:fudo_challenge/config.dart';
-import 'package:fudo_challenge/framework/spread_state.dart';
-import '../../framework/spread_builder.dart';
+import 'package:spread/spread_builder.dart';
+import 'package:spread/spread_state.dart';
+import 'config.dart';
 
-class HomePage2 extends StatelessWidget {
+class HomePage extends StatelessWidget {
+  static const namedState = "homeTab";
+  static const postsState = "posts";
+  static const usersState = "users";
 
-  const HomePage2({super.key
+  const HomePage({super.key
   });
 
   @override
@@ -16,7 +19,7 @@ class HomePage2 extends StatelessWidget {
         appBar: _appbar,
         bottomNavigationBar: _navigator(context),
         body: Spread(
-          stateName: "homeTab",
+          stateName: namedState,
           builder: _homeBody,
         )
     );
@@ -24,10 +27,10 @@ class HomePage2 extends StatelessWidget {
 
   Widget _homeBody(BuildContext context, dynamic state) {
     switch(state) {
-      case "posts": {
+      case postsState: {
         return _postsPageBuilder(context);
       }
-      case "users":
+      case usersState:
       default: {
         return _usersPageBuilder(context);
       }
@@ -52,20 +55,19 @@ class HomePage2 extends StatelessWidget {
     ],
   );
 
-  Widget _usersPageBuilder(BuildContext context) => const Text('users');
-      //UserList(state: state);
+  Widget _usersPageBuilder(BuildContext context) => const Center(child:Text('users'));
 
-  Widget _postsPageBuilder(BuildContext context) => const Text('posts');
+  Widget _postsPageBuilder(BuildContext context) => const Center(child:Text('posts'));
 
   Future onNavigatorTap(int index) async {
     print('navigator tap: $index');
     switch(index) {
       case 0: {
-        SpreadState().emitNamed("homeTab", "users");
+        SpreadState().emitNamed(namedState, usersState);
         break;
       }
       case 1: {
-        SpreadState().emitNamed("homeTab", "posts");
+        SpreadState().emitNamed(namedState, postsState);
         break;
       }
     }

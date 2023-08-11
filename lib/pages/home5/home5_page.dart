@@ -1,11 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:fudo_challenge/config.dart';
-import 'package:fudo_challenge/framework/spread_state.dart';
 import 'package:fudo_challenge/pages/home5/widgets/posts.dart';
 import 'package:fudo_challenge/pages/home5/widgets/users.dart';
-import '../../framework/spread_builder.dart';
 import 'home5_states.dart';
+import 'package:spread/spread_builder.dart';
+import 'package:spread/spread_state.dart';
 
 class HomePage5 extends StatelessWidget {
   final Users5State users = Users5State(id: 'users');

@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:fudo_challenge/config.dart';
-import 'package:fudo_challenge/framework/spread_state.dart';
-import '../../framework/spread_builder.dart';
+import 'package:spread/spread_builder.dart';
+import 'package:spread/spread_state.dart';
 import 'home3_states.dart';
 
 class HomePage3 extends StatelessWidget {
