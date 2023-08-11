@@ -15,23 +15,22 @@ class SpreadState {
     _listeners = {};
   }
 
-  void emitKey(String stateKey, dynamic state) async {
-    if (!_root.containsKey(stateKey)) {
-      _root.putIfAbsent(stateKey, () => state);
-    } else {
-      _root[stateKey] = state;
-    }
-    _emit(stateKey, state);
-  }
-
   void emit<T>(T state) async {
-    final stateKey = 'type:${T.toString()}';
-    final list = _listeners[stateKey];
-    emitKey(stateKey, state);
+    final stateName = 'type:${T.toString()}';
+    emitNamed(stateName, state);
   }
 
-  void _emit(String stateKey, dynamic state) async {
-    final list = _listeners[stateKey];
+  void emitNamed(String stateName, dynamic state) async {
+    if (!_root.containsKey(stateName)) {
+      _root.putIfAbsent(stateName, () => state);
+    } else {
+      _root[stateName] = state;
+    }
+    _emit(stateName, state);
+  }
+
+  void _emit(String stateName, dynamic state) async {
+    final list = _listeners[stateName];
     if (list != null) {
       for (var controller in list) {
         _sendState(controller, state);
@@ -43,38 +42,39 @@ class SpreadState {
     controller.add(state);
   }
 
-  Future<Subscription> subscribeByKey(String stateKey, void Function(dynamic) onChange) async {
-    final list = _listeners[stateKey] ?? [];
-    final controller = StreamController<dynamic>();
-    controller.stream.listen(onChange);
-    list.add(controller);
-    _listeners.putIfAbsent(stateKey, () => list);
-    return Subscription._internal(stateKey, controller);
-  }
-
-  Future<Subscription> subscribeByType<T>(void Function(T) onChange) async {
-    final stateKey = 'type:${T.toString()}';
-    final list = _listeners[stateKey] ?? [];
+  Future<Subscription> subscribe<T>(void Function(T) onChange) async {
+    final stateName = 'type:${T.toString()}';
+    final list = _listeners[stateName] ?? [];
     final controller = StreamController<T>();
     controller.stream.listen(onChange);
     list.add(controller);
-    _listeners.putIfAbsent(stateKey, () => list);
-    return Subscription._internal(stateKey, controller);
+    _listeners.putIfAbsent(stateName, () => list);
+    return Subscription._internal(stateName, controller);
   }
 
+  Future<Subscription> subscribeNamed(String stateName, void Function(dynamic) onChange) async {
+    final list = _listeners[stateName] ?? [];
+    final controller = StreamController<dynamic>();
+    controller.stream.listen(onChange);
+    list.add(controller);
+    _listeners.putIfAbsent(stateName, () => list);
+    return Subscription._internal(stateName, controller);
+  }
+
+
   void _unSubscribe(Subscription subscription) async {
-    final list = _listeners[subscription._stateKey];
+    final list = _listeners[subscription._stateName];
     list?.remove(subscription._controller);
-    subscription._controller.done;
+    subscription._controller.close();
   }
 }
 
 class Subscription {
-  final String _stateKey;
+  final String _stateName;
   final StreamController<dynamic> _controller;
 
-  Subscription._internal(String stateKey, StreamController<dynamic> controller)
-      : _controller = controller, _stateKey = stateKey;
+  Subscription._internal(String stateName, StreamController<dynamic> controller)
+      : _controller = controller, _stateName = stateName;
 
   void unSubscribe() async {
     SpreadState()._unSubscribe(this);

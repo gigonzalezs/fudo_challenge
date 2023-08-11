@@ -61,11 +61,11 @@ class HomePage2 extends StatelessWidget {
     print('navigator tap: $index');
     switch(index) {
       case 0: {
-        SpreadState().emitKey("homeTab", "users");
+        SpreadState().emitNamed("homeTab", "users");
         break;
       }
       case 1: {
-        SpreadState().emitKey("homeTab", "posts");
+        SpreadState().emitNamed("homeTab", "posts");
         break;
       }
     }

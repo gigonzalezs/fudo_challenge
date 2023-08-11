@@ -46,10 +46,10 @@ class _SpreadState<T> extends State<Spread<T>> {
   void initState() {
     super.initState();
      if (widget.isTyped) {
-        SpreadState().subscribeByType<T>(_updateState)
+        SpreadState().subscribe<T>(_updateState)
             .then(_onSubscriptionCreated);
      } else {
-        SpreadState().subscribeByKey(widget.stateKey!, _updateState)
+        SpreadState().subscribeNamed(widget.stateKey!, _updateState)
         .then(_onSubscriptionCreated);
       }
   }
