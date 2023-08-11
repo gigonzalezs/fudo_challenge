@@ -4,7 +4,7 @@ import '../framework/use_case.dart';
 import '../services.dart';
 import 'package:fudo_challenge/users/user_states.dart';
 
-class LoadUsers implements UseCase {
+class LoadUsersUseCase implements UseCase {
 
   @override
   void execute() async {

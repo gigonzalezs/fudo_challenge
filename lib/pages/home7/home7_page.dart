@@ -17,7 +17,7 @@ class HomePage7 extends StatelessWidget {
   Widget build(BuildContext context) {
     // set initial states
     SpreadState().emit<Home7PageState>(Home7PageState.users);
-    LoadUsers().execute();
+    LoadUsersUseCase().execute();
 
     return Scaffold(
         appBar: _appbar,
@@ -74,7 +74,7 @@ class HomePage7 extends StatelessWidget {
   }
 
   void showUsers() async {
-    LoadUsers().execute();
+    LoadUsersUseCase().execute();
     SpreadState().emit<Home7PageState>(Home7PageState.users);
   }
 
