@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'widgets/posts.dart';
-import 'widgets/users.dart';
 import 'package:spread/spread_builder.dart';
 import 'package:spread/spread_state.dart';
+import 'widgets/posts.dart';
+import 'widgets/users.dart';
 import 'states.dart';
 import 'config.dart';
 
@@ -27,12 +27,10 @@ class HomePage extends StatelessWidget {
   Widget _homeBody(BuildContext context, AppState? state) {
     switch(state) {
       case AppState.posts: {
-        //return _postsPageBuilder(context);
         return const UsersPage();
       }
       case AppState.users:
       default: {
-        //return _usersPageBuilder(context);
         return const PostsPage();
       }
     }

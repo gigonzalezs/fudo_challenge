@@ -1,2 +1,2 @@
 
-const appName = 'Spread demo: typedState';
+const appName = 'Spread demo: enumState + multicast';
