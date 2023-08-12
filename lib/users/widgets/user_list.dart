@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'user_item.dart';
 import '../user_states.dart';
 
 class UsersList extends StatelessWidget {
@@ -34,8 +35,8 @@ class UsersList extends StatelessWidget {
     return ListView.builder(
       itemCount: state.users.length,
       itemBuilder: (BuildContext context, int index) {
-        return ListTile(
-          title: Text(state.users[index].name),
+        return UserItem(
+          user: state.users[index]
         );
       },
     );
