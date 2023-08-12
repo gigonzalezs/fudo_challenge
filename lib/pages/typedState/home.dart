@@ -1,13 +1,13 @@
 
 import 'package:flutter/material.dart';
-import 'package:fudo_challenge/config.dart';
 import 'package:spread/spread_builder.dart';
 import 'package:spread/spread_state.dart';
-import 'home3_states.dart';
+import 'states.dart';
+import 'config.dart';
 
-class HomePage3 extends StatelessWidget {
+class HomePage extends StatelessWidget {
 
-  const HomePage3({super.key
+  const HomePage({super.key
   });
 
   @override
@@ -16,18 +16,18 @@ class HomePage3 extends StatelessWidget {
     return Scaffold(
         appBar: _appbar,
         bottomNavigationBar: _navigator(context),
-        body: Spread<Home3PageState>(
+        body: Spread<AppState>(
           builder: _homeBody,
         )
     );
   }
 
-  Widget _homeBody(BuildContext context, Home3PageState? state) {
+  Widget _homeBody(BuildContext context, AppState? state) {
     switch(state.runtimeType) {
-      case Posts3State: {
+      case PostsState: {
         return _postsPageBuilder(context);
       }
-      case Users3State:
+      case UsersState:
       default: {
         return _usersPageBuilder(context);
       }
@@ -52,20 +52,19 @@ class HomePage3 extends StatelessWidget {
     ],
   );
 
-  Widget _usersPageBuilder(BuildContext context) => const Text('users');
-      //UserList(state: state);
+  Widget _usersPageBuilder(BuildContext context) => const Center(child:Text('users'));
 
-  Widget _postsPageBuilder(BuildContext context) => const Text('posts');
+  Widget _postsPageBuilder(BuildContext context) => const Center(child:Text('posts'));
 
   Future onNavigatorTap(int index) async {
     print('navigator tap: $index');
     switch(index) {
       case 0: {
-        SpreadState().emit<Home3PageState>(Users3State());
+        SpreadState().emit<AppState>(UsersState());
         break;
       }
       case 1: {
-        SpreadState().emit<Home3PageState>(Posts3State());
+        SpreadState().emit<AppState>(PostsState());
         break;
       }
     }
