@@ -1,41 +1,41 @@
 
 import 'package:flutter/material.dart';
-import 'package:fudo_challenge/config.dart';
-import 'package:fudo_challenge/users/user_use_cases.dart';
-import 'package:fudo_challenge/pages/home7/widgets/posts.dart';
-import 'package:fudo_challenge/pages/home7/widgets/users.dart';
-import 'home7_states.dart';
+import '../../config.dart';
+import '../../users/user_use_cases.dart';
+import 'widgets/posts.dart';
+import 'widgets/users.dart';
+import 'states.dart';
 import 'package:spread/spread_builder.dart';
 import 'package:spread/spread_state.dart';
 
-class HomePage7 extends StatelessWidget {
+class HomePage extends StatelessWidget {
 
-  HomePage7({super.key
+  HomePage({super.key
   });
 
   @override
   Widget build(BuildContext context) {
     // set initial states
-    SpreadState().emit<Home7PageState>(Home7PageState.users);
+    SpreadState().emit<AppState>(AppState.users);
     LoadUsersUseCase().execute();
 
     return Scaffold(
         appBar: _appbar,
         bottomNavigationBar: _navigator(context),
-        body: Spread<Home7PageState>(
+        body: Spread<AppState>(
           builder: _homeBody,
         )
     );
   }
 
-  Widget _homeBody(BuildContext context, Home7PageState? state) {
+  Widget _homeBody(BuildContext context, AppState? state) {
     switch(state) {
-      case Home7PageState.posts: {
-        return Posts7Page();
+      case AppState.posts: {
+        return PostsPage();
       }
-      case Home7PageState.users:
+      case AppState.users:
       default: {
-        return Users7Page();
+        return UsersPage();
       }
     }
   }
@@ -75,10 +75,10 @@ class HomePage7 extends StatelessWidget {
 
   void showUsers() async {
     LoadUsersUseCase().execute();
-    SpreadState().emit<Home7PageState>(Home7PageState.users);
+    SpreadState().emit<AppState>(AppState.users);
   }
 
   void showPosts() async {
-    SpreadState().emit<Home7PageState>(Home7PageState.posts);
+    SpreadState().emit<AppState>(AppState.posts);
   }
 }

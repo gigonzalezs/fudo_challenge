@@ -54,7 +54,7 @@ class HomePage extends StatelessWidget {
 
   Widget _usersPageBuilder(BuildContext context) => const Center(child:Text('users'));
 
-  Widget _postsPageBuilder(BuildContext context) => const Center(child:Text('posts'));
+  Widget _postsPageBuilder(BuildContext context) => const Center(child:Text('ports'));
 
   Future onNavigatorTap(int index) async {
     print('navigator tap: $index');

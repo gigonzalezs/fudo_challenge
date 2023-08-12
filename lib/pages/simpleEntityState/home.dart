@@ -9,7 +9,7 @@ import 'config.dart';
 
 class HomePage extends StatelessWidget {
   final UserCounterState users = UserCounterState(id: 'users');
-  final PostCounterState posts = PostCounterState(id: 'posts');
+  final PostCounterState posts = PostCounterState(id: 'ports');
 
   HomePage({super.key
   });

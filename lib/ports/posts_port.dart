@@ -2,11 +2,11 @@ import 'dart:async';
 
 import '../users/user.dart';
 
-abstract interface class JsonPlaceHolderRepository {
+abstract interface class PostsPort {
   Future<List<User>> findAllUsers();
 }
 
-class JsonPlaceHolderRepositoryImpl implements JsonPlaceHolderRepository {
+class PostsApiPort implements PostsPort {
 
   @override
   Future<List<User>> findAllUsers() async {
@@ -15,8 +15,8 @@ class JsonPlaceHolderRepositoryImpl implements JsonPlaceHolderRepository {
           seconds: 2,
         ),
         () => [
-          User(id: 1, name: "a"),
-          User(id: 2, name: "b")
+          User(id: 1, name: "aaaa"),
+          User(id: 2, name: "bbbb")
         ]
     );
   }

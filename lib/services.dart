@@ -1,6 +1,5 @@
 
-import 'package:fudo_challenge/users/users_observer.dart';
-import 'package:fudo_challenge/users/users_service.dart';
+import 'users/users_service.dart';
 
 class Services {
   static final Services _singleton = Services._internal();
@@ -8,11 +7,11 @@ class Services {
     return _singleton;
   }
   Services._internal();
-  late final UserService users;
+  late final UserService userService;
 
   void init({
-    required UserService Function() users,
+    required UserService Function() userService,
   }) async {
-    this.users = users();
+    this.userService = userService.call();
   }
 }

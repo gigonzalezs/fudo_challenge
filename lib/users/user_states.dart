@@ -1,5 +1,5 @@
 
-import 'package:fudo_challenge/users/user.dart';
+import 'user.dart';
 
 abstract class UsersState {}
 

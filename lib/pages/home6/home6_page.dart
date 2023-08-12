@@ -10,7 +10,7 @@ import 'package:spread/spread_state.dart';
 
 class HomePage6 extends StatelessWidget {
   final Users6State users = Users6State(id: 'users');
-  final Posts6State posts = Posts6State(id: 'posts');
+  final Posts6State posts = Posts6State(id: 'ports');
 
   HomePage6({super.key
   });

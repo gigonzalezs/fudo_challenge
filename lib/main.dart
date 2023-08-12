@@ -1,21 +1,21 @@
-import 'package:flutter/material.dart';
-import 'package:fudo_challenge/repositories/JsonPlaceHolderRepository.dart';
-import 'package:fudo_challenge/services.dart';
-import 'package:fudo_challenge/users/users_observer.dart';
-import 'package:fudo_challenge/users/users_service.dart';
 
-import 'tweets_app.dart';
+import 'package:flutter/material.dart';
+import 'ports/posts_port.dart';
+import 'users/users_service.dart';
+import 'users/users_observer.dart';
+import 'services.dart';
+import 'app.dart';
 
 void main() {
   initServices();
   initObservers();
-  runApp(const TweetsApp());
+  runApp(const MyApp());
 }
 
 void initServices() async {
   Services().init(
-    users: () => UserServiceImpl(
-        repository: JsonPlaceHolderRepositoryImpl()
+      userService: () => UserServiceImpl(
+        repository: PostsApiPort()
     )
   );
 }

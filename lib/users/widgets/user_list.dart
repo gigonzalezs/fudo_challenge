@@ -1,11 +1,12 @@
 
 import 'package:flutter/material.dart';
-import 'package:fudo_challenge/users/user_states.dart';
+import '../user_states.dart';
 
-class User7List extends StatelessWidget {
+class UsersList extends StatelessWidget {
   final UsersState? state;
 
-  const User7List({super.key, required this.state});
+  const UsersList({super.key, required this.state});
+
   @override
   Widget build(BuildContext context) {
     if (state == null) {

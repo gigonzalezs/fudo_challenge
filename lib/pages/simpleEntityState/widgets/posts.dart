@@ -20,7 +20,7 @@ class PostsPage extends StatelessWidget {
               }),
           IconButton(
               onPressed: () {
-                print('increment posts');
+                print('increment ports');
                 posts.increment();
                 SpreadState().emitEntity(posts);
               },

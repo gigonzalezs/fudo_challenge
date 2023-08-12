@@ -1,16 +1,14 @@
 
 import 'dart:async';
-
-import 'package:fudo_challenge/users/user.dart';
-
-import '../repositories/JsonPlaceHolderRepository.dart';
+import 'user.dart';
+import '../ports/posts_port.dart';
 
 abstract interface class UserService {
   Future<List<User>> getUsers();
 }
 
 class UserServiceImpl implements UserService {
-  final JsonPlaceHolderRepository repository;
+  final PostsPort repository;
 
   UserServiceImpl({required this.repository});
 
