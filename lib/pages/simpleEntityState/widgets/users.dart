@@ -1,21 +1,21 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:spread/spread_builder.dart';
 import 'package:spread/spread_state.dart';
-import '../home5_states.dart';
+import '../states.dart';
 
-class Users5Page extends StatelessWidget {
-  final Users5State users;
-  const Users5Page({super.key, required this.users});
+class UsersPage extends StatelessWidget {
+  final UserCounterState users;
+  const UsersPage({super.key, required this.users});
 
   @override
   Widget build(BuildContext context) => Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Spread<Users5State>(
+          Spread<UserCounterState>(
               entity: users,
-              builder: (BuildContext context, Users5State? state) {
+              builder: (BuildContext context, UserCounterState? state) {
                 return Text(state?.count.toString() ?? "<USERS>");
               }),
           IconButton(

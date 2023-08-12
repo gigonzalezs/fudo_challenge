@@ -1,43 +1,42 @@
 
 import 'package:flutter/material.dart';
-import 'package:fudo_challenge/config.dart';
-import 'package:fudo_challenge/pages/home5/widgets/posts.dart';
-import 'package:fudo_challenge/pages/home5/widgets/users.dart';
-import 'home5_states.dart';
 import 'package:spread/spread_builder.dart';
 import 'package:spread/spread_state.dart';
+import 'widgets/posts.dart';
+import 'widgets/users.dart';
+import 'states.dart';
+import 'config.dart';
 
-class HomePage5 extends StatelessWidget {
-  final Users5State users = Users5State(id: 'users');
-  final Posts5State posts = Posts5State(id: 'posts');
+class HomePage extends StatelessWidget {
+  final UserCounterState users = UserCounterState(id: 'users');
+  final PostCounterState posts = PostCounterState(id: 'posts');
 
-  HomePage5({super.key
+  HomePage({super.key
   });
-
 
   @override
   Widget build(BuildContext context) {
-    SpreadState().emit<Home5PageState>(users);
+    SpreadState().emit<CounterState>(users);
     SpreadState().emitEntity(users);
     SpreadState().emitEntity(posts);
 
     return Scaffold(
         appBar: _appbar,
         bottomNavigationBar: _navigator(context),
-        body: Spread<Home5PageState>(
+        body: Spread<CounterState>(
           builder: _homeBody,
         )
     );
   }
 
-  Widget _homeBody(BuildContext context, Home5PageState? state) {
+  Widget _homeBody(BuildContext context, CounterState? state) {
     switch(state.runtimeType) {
-      case Posts5State: {
-        return Posts5Page(posts: posts);
+      case PostCounterState: {
+        return PostsPage(posts: posts);
       }
-      case Users5State:
+      case UserCounterState:
       default: {
-        return Users5Page(users: users);
+        return UsersPage(users: users);
       }
     }
   }
@@ -66,12 +65,12 @@ class HomePage5 extends StatelessWidget {
     switch(index) {
       case 0: {
         users.increment();
-        SpreadState().emit<Home5PageState>(users);
+        SpreadState().emit<CounterState>(users);
         break;
       }
       case 1: {
         posts.increment();
-        SpreadState().emit<Home5PageState>(posts);
+        SpreadState().emit<CounterState>(posts);
         break;
       }
     }
