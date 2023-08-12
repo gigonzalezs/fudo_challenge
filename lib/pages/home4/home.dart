@@ -1,37 +1,36 @@
 
 import 'package:flutter/material.dart';
-import 'package:fudo_challenge/config.dart';
-import 'package:fudo_challenge/pages/home4/widgets/posts.dart';
-import 'package:fudo_challenge/pages/home4/widgets/users.dart';
+import 'widgets/posts.dart';
+import 'widgets/users.dart';
 import 'package:spread/spread_builder.dart';
 import 'package:spread/spread_state.dart';
-import 'home4_states.dart';
+import 'states.dart';
+import 'config.dart';
 
-class HomePage4 extends StatelessWidget {
+class HomePage extends StatelessWidget {
 
-  const HomePage4({super.key
+  const HomePage({super.key
   });
-
 
   @override
   Widget build(BuildContext context) {
-    SpreadState().emit<Home4PageState>(Home4PageState.users);
+    SpreadState().emit<AppState>(AppState.users);
     return Scaffold(
         appBar: _appbar,
         bottomNavigationBar: _navigator(context),
-        body: Spread<Home4PageState>(
+        body: Spread<AppState>(
           builder: _homeBody,
         )
     );
   }
 
-  Widget _homeBody(BuildContext context, Home4PageState? state) {
+  Widget _homeBody(BuildContext context, AppState? state) {
     switch(state) {
-      case Home4PageState.posts: {
+      case AppState.posts: {
         //return _postsPageBuilder(context);
         return const UsersPage();
       }
-      case Home4PageState.users:
+      case AppState.users:
       default: {
         //return _usersPageBuilder(context);
         return const PostsPage();
@@ -57,20 +56,15 @@ class HomePage4 extends StatelessWidget {
     ],
   );
 
-  Widget _usersPageBuilder(BuildContext context) => const Text('users');
-      //UserList(state: state);
-
-  Widget _postsPageBuilder(BuildContext context) => const Text('posts');
-
   Future onNavigatorTap(int index) async {
     print('navigator tap: $index');
     switch(index) {
       case 0: {
-        SpreadState().emit<Home4PageState>(Home4PageState.users);
+        SpreadState().emit<AppState>(AppState.users);
         break;
       }
       case 1: {
-        SpreadState().emit<Home4PageState>(Home4PageState.posts);
+        SpreadState().emit<AppState>(AppState.posts);
         break;
       }
     }
