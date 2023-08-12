@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:spread/spread_builder.dart';
 import '../user.dart';
 
 class UserItem extends StatelessWidget {
@@ -9,8 +10,15 @@ class UserItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(user.name),
+    return Spread<User>(
+      entity: user,
+      builder: (BuildContext context, User? entity) {
+        return ListTile(
+          title: Text(entity!.id.toString()),
+          subtitle: Text(entity!.name.toString()),
+
+        );
+      },
     );
   }
 

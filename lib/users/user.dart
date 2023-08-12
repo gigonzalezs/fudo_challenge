@@ -1,9 +1,12 @@
 
-class User {
+import 'package:spread/entity.dart';
+
+class User implements Entity {
   final int id;
   final String name;
+  final List<UserPost> posts;
 
-  User({required this.id, required this.name});
+  User({required this.id, required this.name, this.posts = const []});
 
   dynamic toDynamic() => {
     'id': id,
@@ -31,4 +34,13 @@ class User {
   String toString() {
     return 'User{id: $id, name: $name}';
   }
+
+  @override
+  String get entityId => id.toString();
+}
+
+class UserPost {
+  final String content;
+
+  UserPost({required this.content});
 }
