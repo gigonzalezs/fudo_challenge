@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import '../users/user.dart';
 
@@ -7,16 +8,18 @@ abstract interface class PostsPort {
 }
 
 class PostsApiPort implements PostsPort {
+  Random random = Random();
 
   @override
   Future<List<User>> findAllUsers() async {
+    final id = random.nextInt(1000);
     return Future.delayed(
         const Duration(
           seconds: 2,
         ),
         () => [
-          User(id: 1, name: "aaaa"),
-          User(id: 2, name: "bbbb")
+          User(id: id, name: "aaaa").generatePosts(),
+          User(id: id + 500, name: "bbbb").generatePosts()
         ]
     );
   }

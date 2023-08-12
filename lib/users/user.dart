@@ -1,12 +1,13 @@
 
 import 'package:spread/entity.dart';
+import 'package:spread/spread_state.dart';
 
 class User implements Entity {
   final int id;
   final String name;
-  final List<UserPost> posts;
+  final List<UserPost> posts = List.empty(growable: true);
 
-  User({required this.id, required this.name, this.posts = const []});
+  User({required this.id, required this.name});
 
   dynamic toDynamic() => {
     'id': id,
@@ -37,6 +38,29 @@ class User implements Entity {
 
   @override
   String get entityId => id.toString();
+
+  User generatePosts()  {
+    _generateRandomPosts();
+    return this;
+  }
+
+  void _generateRandomPosts() async {
+    for(int i=0; i< 100; i++) {
+      final post = await _generateRandomPost();
+      print('added post');
+      posts.add(post);
+      SpreadState().emitEntity<User>(this);
+    }
+  }
+
+  Future<UserPost> _generateRandomPost() async {
+    return Future.delayed(
+        const Duration(
+          seconds: 1,
+        ),
+            () => UserPost(content: 'random content')
+    );
+  }
 }
 
 class UserPost {

@@ -10,16 +10,21 @@ class UserItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Spread<User>(
-      entity: user,
-      builder: (BuildContext context, User? entity) {
-        return ListTile(
-          title: Text(entity!.id.toString()),
-          subtitle: Text(entity!.name.toString()),
+    return ListTile(
+        title: Text(user.id.toString()),
+        subtitle: Row(
+          children: [
+            Text(user.name.toString()),
+            const SizedBox(width: 10),
+            Spread<User>(
+              entity: user,
+              builder: (BuildContext context, User? entity) {
+                return Text('- posts: ${entity!.posts.length.toString()}');
+              }
+            )
+          ],
+        )
 
-        );
-      },
     );
   }
-
 }
