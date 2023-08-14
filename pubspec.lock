@@ -283,7 +283,14 @@ packages:
       path: "../spread"
       relative: true
     source: path
-    version: "0.0.4"
+    version: "0.0.5"
+  spread_core:
+    dependency: transitive
+    description:
+      path: "../spread_core"
+      relative: true
+    source: path
+    version: "0.0.5"
   stack_trace:
     dependency: transitive
     description:

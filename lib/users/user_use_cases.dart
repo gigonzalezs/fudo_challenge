@@ -1,8 +1,6 @@
 
 import 'package:fudo_challenge/users/user.dart';
-import 'package:spread/spread_emitter_mixin.dart';
-import 'package:spread/spread_state.dart';
-import 'package:spread/use_case.dart';
+import 'package:spread/spread.dart';
 import '../services.dart';
 import 'user_states.dart';
 
