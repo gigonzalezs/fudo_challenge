@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
-import '../users/user.dart';
+import '../users/model/user.dart';
 
 abstract interface class PostsPort {
   Future<List<User>> findAllUsers();
@@ -18,9 +18,8 @@ class PostsApiPort implements PostsPort {
           seconds: 2,
         ),
         () => [
-          User(id: id, name: "aaaa").generatePosts(),
-          User(id: id + 500, name: "bbbb").generatePosts()
-        ]
-    );
+              User(id: id, name: "aaaa").generatePosts(),
+              User(id: id + 500, name: "bbbb").generatePosts()
+            ]);
   }
 }

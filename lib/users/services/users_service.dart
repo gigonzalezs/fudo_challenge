@@ -1,7 +1,6 @@
-
 import 'dart:async';
-import 'user.dart';
-import '../ports/posts_port.dart';
+import '../model/user.dart';
+import '../../ports/posts_port.dart';
 
 abstract interface class UserService {
   Future<List<User>> getUsers();
@@ -13,7 +12,7 @@ class UserServiceImpl implements UserService {
   UserServiceImpl({required this.repository});
 
   @override
-  Future <List<User>> getUsers() async {
-   return repository.findAllUsers();
+  Future<List<User>> getUsers() async {
+    return repository.findAllUsers();
   }
 }

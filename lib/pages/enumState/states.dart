@@ -1,4 +1,0 @@
-
-enum AppState {
-  users, posts
-}

@@ -1,7 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:spread/spread.dart';
-import '../user.dart';
+import '../model/user.dart';
 
 class UserItem extends StatelessWidget {
   final User user;
@@ -17,14 +16,11 @@ class UserItem extends StatelessWidget {
             Text(user.name.toString()),
             const SizedBox(width: 10),
             Spread<User>(
-              entity: user,
-              builder: (BuildContext context, User? entity) {
-                return Text('- posts: ${entity!.posts.length.toString()}');
-              }
-            )
+                entity: user,
+                builder: (BuildContext context, User? entity) {
+                  return Text('- posts: ${entity!.posts.length.toString()}');
+                })
           ],
-        )
-
-    );
+        ));
   }
 }

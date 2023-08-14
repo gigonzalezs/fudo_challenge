@@ -1,5 +1,4 @@
-
-import 'users/users_service.dart';
+import 'users/services/users_service.dart';
 
 class Services {
   static final Services _singleton = Services._internal();
