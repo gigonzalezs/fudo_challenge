@@ -280,17 +280,19 @@ packages:
   spread:
     dependency: "direct main"
     description:
-      path: "../spread"
-      relative: true
-    source: path
-    version: "0.0.5"
+      name: spread
+      sha256: "1a079991d098f45b4a17136e751817f28213c62176799ffc7e5cb1ae6e2892f9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.6"
   spread_core:
     dependency: transitive
     description:
-      path: "../spread_core"
-      relative: true
-    source: path
-    version: "0.0.5"
+      name: spread_core
+      sha256: a497d4038f6df3bd5223064ebe4e0a84ca27ef6d6774265a2e986253a504cc40
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.6"
   stack_trace:
     dependency: transitive
     description:
