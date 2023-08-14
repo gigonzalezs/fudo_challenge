@@ -47,8 +47,8 @@ class User with StateEmitter implements Entity {
   void _generateRandomPosts() async {
     for(int i=0; i< 100; i++) {
       final post = await _generateRandomPost();
-      print('added post');
       posts.add(post);
+      print('added post for user $id. count=${posts.length.toString()}');
       emitEntity<User>(this);
     }
   }
