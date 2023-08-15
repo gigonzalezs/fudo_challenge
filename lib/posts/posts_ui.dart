@@ -1,2 +1,2 @@
 
-export 'presentation/posts.dart' show PostsPage;
+export 'presentation/posts_page.dart' show PostsPage;

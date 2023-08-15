@@ -5,6 +5,9 @@ import '../widgets/user_list.dart';
 import '../states/user_states.dart';
 
 class UsersPage extends StatelessWidget {
+
+  const UsersPage({super.key});
+
   @override
   Widget build(BuildContext context) =>
       Spread<UsersState>(builder: (BuildContext context, UsersState? state) {
