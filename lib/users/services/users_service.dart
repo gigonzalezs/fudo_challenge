@@ -13,6 +13,10 @@ class UserServiceImpl implements UserService {
 
   @override
   Future<List<User>> getUsers() async {
-    return repository.findAllUsers();
+    return repository.findAllUsers()
+        .then((userDTOs) => userDTOs
+          .map((userDTO) => User.fromUserDto(userDTO))
+          .toList(growable: false)
+    );
   }
 }

@@ -1,25 +1,23 @@
 import 'dart:async';
-import 'dart:math';
-
-import '../users/model/user.dart';
+import 'dart:convert';
+import 'user_dto.dart';
+import 'package:http/http.dart' as http;
 
 abstract interface class PostsPort {
-  Future<List<User>> findAllUsers();
+  Future<List<UserDTO>> findAllUsers();
 }
 
 class PostsApiPort implements PostsPort {
-  Random random = Random();
 
   @override
-  Future<List<User>> findAllUsers() async {
-    final id = random.nextInt(1000);
-    return Future.delayed(
-        const Duration(
-          seconds: 2,
-        ),
-        () => [
-              User(id: id, name: "aaaa").generatePosts(),
-              User(id: id + 500, name: "bbbb").generatePosts()
-            ]);
+  Future<List<UserDTO>> findAllUsers() async {
+    final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users/'));
+
+    if (response.statusCode == 200) {
+      List<dynamic> jsonResponse = json.decode(response.body);
+      return jsonResponse.map((user) => UserDTO.fromJson(user)).toList();
+    } else {
+      throw Exception('Failed to load users');
+    }
   }
 }

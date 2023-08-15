@@ -1,16 +1,28 @@
 import 'package:spread/spread.dart';
 
-class User with StateEmitter implements Entity {
+import '../../ports/ports.dart';
+
+class User implements Entity {
   final int id;
   final String name;
-  final List<UserPost> posts = List.empty(growable: true);
+  final String userName;
+  final String email;
 
-  User({required this.id, required this.name});
+  User({required this.id, required this.name, required this.userName, required this.email});
 
   dynamic toDynamic() => {'id': id, 'name': name};
 
   static User fromDynamic(dynamic user) =>
-      User(id: user['id'], name: user['name']);
+      User(id: user['id'], name: user['name'], userName: user['useraame'], email: user['email'] );
+
+  factory User.fromUserDto(UserDTO userDTO) {
+    return User(
+      id: userDTO.id,
+      name: userDTO.name,
+      userName: userDTO.username,
+      email: userDTO.email
+    );
+  }
 
   @override
   bool operator ==(Object other) {
@@ -23,37 +35,9 @@ class User with StateEmitter implements Entity {
 
   @override
   String toString() {
-    return 'User{id: $id, name: $name}';
+    return 'User{id: $id, name: $name, username: $userName, email: $email}';
   }
 
   @override
   String get entityId => id.toString();
-
-  User generatePosts() {
-    _generateRandomPosts();
-    return this;
-  }
-
-  void _generateRandomPosts() async {
-    for (int i = 0; i < 100; i++) {
-      final post = await _generateRandomPost();
-      posts.add(post);
-      print('added post for user $id. count=${posts.length.toString()}');
-      emitEntity<User>(this);
-    }
-  }
-
-  Future<UserPost> _generateRandomPost() async {
-    return Future.delayed(
-        const Duration(
-          seconds: 1,
-        ),
-        () => UserPost(content: 'random content'));
-  }
-}
-
-class UserPost {
-  final String content;
-
-  UserPost({required this.content});
 }
