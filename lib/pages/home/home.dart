@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:spread/spread.dart';
 import '../../config.dart';
-import '../../users/use_cases/user_use_cases.dart';
-import '../../users/presentation/users_page.dart';
-import '../../posts/presentation/posts.dart';
+import '../../posts/posts_ui.dart';
+import '../../users/users_ui.dart';
+import '../../users/users.dart';
 import 'states.dart';
 
 class HomePage extends StatelessWidget with StateEmitter {
-  HomePage({super.key});
 
-  @override
-  Widget build(BuildContext context) {
+  HomePage({super.key}) {
     // set initial states
     emit<AppState>(AppState.users);
     LoadUsersUseCase().execute();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
         appBar: _appbar,
         bottomNavigationBar: _navigator(context),

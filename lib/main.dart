@@ -7,7 +7,6 @@ import 'app.dart';
 
 void main() {
   initServices();
-  initObservers();
   runApp(const MyApp());
 }
 
@@ -19,8 +18,4 @@ void initServices() async {
         ),
         authService: () => AuthServiceImpl()
   );
-}
-
-void initObservers() async {
-  UsersObserver().selfRegister();
 }

@@ -76,13 +76,10 @@ class LoginPageState extends State<LoginPage> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-
   void _onLoginButtonPressed() async {
     LoginUseCase(
         username: userController.text,
         password: passwordController.text
     ).execute();
   }
-
-
 }
