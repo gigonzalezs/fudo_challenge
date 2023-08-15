@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spread/spread.dart';
 import '../model/user.dart';
+import '../states/user_item_states.dart';
 
 class UserItem extends StatelessWidget with StateEmitter {
   final User user;
@@ -14,22 +15,22 @@ class UserItem extends StatelessWidget with StateEmitter {
 
   @override
   Widget build(BuildContext context) {
-    return Spread<_UserItemState>(
-        builder: (BuildContext ctx, _UserItemState? state) {
+    return Spread<UserItemState>(
+        builder: (BuildContext ctx, UserItemState? state) {
 
       if (state == null) {
         backColor = _tileColor;
       } else {
 
         switch (state.runtimeType) {
-          case _UserNoSelectedState:
+          case UserNoSelectedState:
             {
               if (state.user == user) {
                 backColor = _tileColor;
               }
               break;
             }
-          case _UserSelectedState:
+          case UserSelectedState:
             {
               if (state.user == user) {
                 backColor = _tapColor;
@@ -54,21 +55,11 @@ class UserItem extends StatelessWidget with StateEmitter {
   void _toggleSelected() {
     _selected = !_selected;
     if (_selected) {
-      emit<_UserItemState>(_UserSelectedState(user: user));
+      emit<UserItemState>(UserSelectedState(user: user));
     } else {
-      emit<_UserItemState>(_UserNoSelectedState(user: user));
+      emit<UserItemState>(UserNoSelectedState(user: user));
     }
   }
 }
 
-abstract class _UserItemState {
-  final User user;
 
-  _UserItemState({required this.user});
-}
-class _UserNoSelectedState extends _UserItemState {
-  _UserNoSelectedState({required super.user});
-}
-class _UserSelectedState extends _UserItemState {
-  _UserSelectedState({required super.user});
-}
