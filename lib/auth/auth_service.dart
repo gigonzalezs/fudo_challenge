@@ -1,18 +1,31 @@
-class AuthService {
-  static final AuthService _singleton = AuthService._internal();
-  factory AuthService() {
-    return _singleton;
-  }
-  AuthService._internal();
+
+abstract interface class AuthService {
+
+  bool get isAuthenticated;
+  Future<bool> login(String username, String password);
+  Future<bool> logoff();
+
+}
+
+class AuthServiceImpl implements AuthService {
 
   bool _isAuthenticated = true;
+
+  @override
   bool get isAuthenticated => _isAuthenticated;
 
-  Future login() async {
-    _isAuthenticated = true;
+  @override
+  Future<bool> login(String username, String password) async {
+    _isAuthenticated = _isValidCredentials(username, password);
+    return _isAuthenticated;
   }
 
-  Future logoff() async {
+  bool _isValidCredentials(String username, String password) =>
+      username == 'challenge@fudo' && password == 'password';
+
+  @override
+  Future<bool> logoff() async {
     _isAuthenticated = false;
+    return _isAuthenticated;
   }
 }

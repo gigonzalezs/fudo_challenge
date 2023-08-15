@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:spread/spread.dart';
+import 'auth/auth.dart';
 import 'pages/home/home.dart';
 import 'config.dart';
 
@@ -14,7 +16,22 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: HomePage(),
+      home: Spread<LoginResult>(
+        builder: (BuildContext context, LoginResult? state) {
+          if(state == null)  return LoginPage();
+          switch(state.runtimeType) {
+            case LoginResultSuccess: {
+              return HomePage();
+            }
+            case LoginResultFail: {
+              return LoginPage();
+            }
+            default: {
+              return LoginPage();
+            }
+          }
+        },
+      )
     );
   }
 }

@@ -1,1 +1,1 @@
-const appName = 'Spread full demo';
+const appName = 'Fudo Challenge';
