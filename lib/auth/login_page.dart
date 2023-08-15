@@ -1,10 +1,30 @@
 
 import 'package:flutter/material.dart';
+import 'states.dart';
+import 'auth_observer.dart';
 import 'login_use_case.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  final String? errorMessage;
+
+  LoginPage({super.key, this.errorMessage});
+
+  @override
+  State<StatefulWidget> createState() => LoginPageState();
+}
+
+class LoginPageState extends State<LoginPage> {
+
   final TextEditingController userController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  late final AuthObserver observer;
+
+  LoginPageState() {
+    observer = AuthObserver(
+        onFail: _onLoginFail
+    )
+    ..selfRegister();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +64,25 @@ class LoginPage extends StatelessWidget {
     );
   }
 
+  void _onLoginFail(LoginResultFail fail) {
+    _showSnackBar(fail.message);
+  }
+
+  void _showSnackBar(String message) {
+    final snackBar = SnackBar(
+        backgroundColor: Colors.red,
+        content: Text(message)
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+
   void _onLoginButtonPressed() async {
     LoginUseCase(
         username: userController.text,
         password: passwordController.text
     ).execute();
   }
+
+
 }

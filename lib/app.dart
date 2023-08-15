@@ -24,7 +24,10 @@ class MyApp extends StatelessWidget {
               return HomePage();
             }
             case LoginResultFail: {
-              return LoginPage();
+              final fail = state as LoginResultFail;
+              return LoginPage(
+                errorMessage: fail.message,
+              );
             }
             default: {
               return LoginPage();

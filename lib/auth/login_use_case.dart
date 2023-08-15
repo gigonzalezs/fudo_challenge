@@ -13,6 +13,7 @@ class LoginUseCase with StateEmitter implements UseCase {
   void execute() async {
     Services().authService.login(username, password)
         .then((result) {
+            print('LoginUseCase: login = $result');
             if (result) {
               emit<LoginResult>(LoginResultSuccess(
                   userName: username
