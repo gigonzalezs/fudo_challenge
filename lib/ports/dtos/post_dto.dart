@@ -15,4 +15,13 @@ class PostDTO {
       body: json['body'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'userId': userId,
+      'id': id,
+      'title': title,
+      'body': body,
+    };
+  }
 }

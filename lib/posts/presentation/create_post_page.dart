@@ -3,7 +3,8 @@ import 'package:spread/spread.dart';
 
 import '../../pages/home/states.dart';
 import '../../users/states/user_item_states.dart';
-import '../states/post_states.dart';
+import '../model/post.dart';
+import '../use_cases/posts_uses_case.dart';
 
 class CreatePostPage extends StatelessWidget with StateEmitter {
   final _formKey = GlobalKey<FormState>();
@@ -55,17 +56,20 @@ class CreatePostPage extends StatelessWidget with StateEmitter {
                       ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            // Aquí puedes manejar la lógica para guardar el post
-                            print('Título: ${_titleController.text}');
-                            print('Cuerpo: ${_bodyController.text}');
-                            emit<AppState>(AppState.posts);
+                            CreatePostUseCase(
+                                post: Post(
+                                  id: 0,
+                                  userId: user.id,
+                                  title: _titleController.text,
+                                  body: _bodyController.text
+                                )
+                            ).execute();
                           }
                         },
                         child: Text('Guardar'),
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          // Aquí puedes manejar la lógica para cancelar
                           _titleController.clear();
                           _bodyController.clear();
                           emit<AppState>(AppState.posts);

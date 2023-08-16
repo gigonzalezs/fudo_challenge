@@ -11,7 +11,7 @@ class PostList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (state == null) {
-      return _loading();
+      return Center(child: Text('No hay usuario seleccionado.'));
     } else {
       switch (state.runtimeType) {
         case LoadedPostsSuccess:

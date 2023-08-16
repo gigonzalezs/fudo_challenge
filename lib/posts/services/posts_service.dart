@@ -4,6 +4,7 @@ import '../model/post.dart';
 
 abstract interface class PostsService {
   Future<List<Post>> getPosts({required int userId});
+  Future<Post> savePost({required Post post});
 }
 
 class PostServiceImpl implements PostsService {
@@ -20,4 +21,10 @@ class PostServiceImpl implements PostsService {
     );
   }
 
+  @override
+  Future<Post> savePost({required Post post}) {
+    return repository.create(post.toDTO())
+        .then((savedDto) => Post.fromDTO(savedDto)
+    );
+  }
 }

@@ -29,4 +29,5 @@ void initServices() async {
 void initObservers() async {
   UserItemObserver().selfRegister();
   PostsObserver().selfRegister();
+  CreatePostObserver().selfRegister();
 }

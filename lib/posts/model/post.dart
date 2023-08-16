@@ -17,4 +17,11 @@ class Post {
       body: dto.body,
     );
   }
+
+  PostDTO toDTO() => PostDTO(
+    id: id,
+    userId: userId,
+    title: title,
+    body: body,
+  );
 }
