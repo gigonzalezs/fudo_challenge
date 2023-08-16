@@ -1,6 +1,5 @@
 import 'package:spread/spread.dart';
 
-import '../../pages/home/states.dart';
 import '../../services.dart';
 import '../../users/model/user.dart';
 import '../model/post.dart';
@@ -13,13 +12,28 @@ class LoadPostsUseCase extends UseCase with StateEmitter {
 
   @override
   void execute() async {
-    emit<PostState>(LoadingPosts());
-    Services()
-        .postsService
-        .getPosts(userId: user.id)
-        .then((posts) => emit<PostState>(LoadedPostsSuccess(posts: posts)))
-        .onError((error, stackTrace) => emit<PostState>(
-            LoadedPostsFail(error: error, stackTrace: stackTrace)));
+    final stateKey =  "posts_cache_${user.id}";
+    final List<Post>? postsCached =
+    SpreadState().getNamed<List<Post>>(stateKey);
+
+    if (postsCached != null) {
+      emit<PostState>(LoadedPostsSuccess(posts: postsCached));
+    } else {
+        emit<PostState>(LoadingPosts());
+        Services()
+            .postsService
+            .getPosts(userId: user.id)
+            .then((posts) {
+                emit<PostState>(LoadedPostsSuccess(posts: posts));
+                emitNamed(stateKey, posts);
+            })
+            .onError((error, stackTrace) {
+              emit<PostState>(LoadedPostsFail(
+                  error: error,
+                  stackTrace: stackTrace)
+              );
+        });
+    }
   }
 }
 
