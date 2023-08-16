@@ -24,4 +24,23 @@ class PostDTO {
       'body': body,
     };
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is PostDTO &&
+        other.userId == userId &&
+        other.id == id &&
+        other.title == title &&
+        other.body == body;
+  }
+
+  @override
+  int get hashCode {
+    return userId.hashCode ^
+    id.hashCode ^
+    title.hashCode ^
+    body.hashCode;
+  }
 }

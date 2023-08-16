@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'auth/auth.dart';
+import 'framework/http_client.dart';
 import 'ports/ports.dart';
 import 'posts/posts.dart';
 import 'users/users.dart';
@@ -13,7 +14,9 @@ void main() {
 }
 
 void initServices() async {
-  final PostsApiPort postsApiPort = PostsApiPort();
+  final PostsApiPort postsApiPort = PostsApiPort(
+    httpClient: HttpClient()
+  );
   Services()
       .init(
         userService: () => UserServiceImpl(
