@@ -17,7 +17,7 @@ class PostServiceImpl implements PostsService {
     return repository.findPostsById(userId)
         .then((postDtos) => postDtos
           .map((postDto) => Post.fromDTO(postDto))
-          .toList(growable: false)
+          .toList(growable: true)
     );
   }
 
