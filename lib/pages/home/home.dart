@@ -16,16 +16,25 @@ class HomePage extends StatelessWidget with StateEmitter {
 
   @override
   Widget build(BuildContext context) {
+    return Spread<AppState>(
+      builder: _homeBuilder,
+    );
+  }
+
+  Widget _homeBuilder(BuildContext context, AppState? state) {
     return Scaffold(
-        appBar: _appbar,
-        bottomNavigationBar: _navigator(context),
-        body: Spread<AppState>(
-          builder: _homeBody,
-        ));
+      appBar: _appbar,
+      bottomNavigationBar: _navigator(context, state),
+      body: _homeBody(context, state),
+      floatingActionButton: _addPostFab(context, state),
+    );
   }
 
   Widget _homeBody(BuildContext context, AppState? state) {
     switch (state) {
+      case AppState.createPost: {
+        return CreatePostPage();
+      }
       case AppState.posts:
         {
           return PostsPage();
@@ -42,7 +51,9 @@ class HomePage extends StatelessWidget with StateEmitter {
         title: Text(appName),
       );
 
-  BottomNavigationBar _navigator(BuildContext context) => BottomNavigationBar(
+  BottomNavigationBar? _navigator(BuildContext context, AppState? state) {
+    if (state != AppState.createPost) {
+      return BottomNavigationBar(
         onTap: onNavigatorTap,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -55,6 +66,18 @@ class HomePage extends StatelessWidget with StateEmitter {
           ),
         ],
       );
+    }
+  }
+
+
+  FloatingActionButton? _addPostFab(BuildContext context, AppState? state) {
+    if (state == AppState.posts) {
+      return FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () => emit<AppState>(AppState.createPost)
+      );
+    }
+  }
 
   Future onNavigatorTap(int index) async {
     print('navigator tap: $index');

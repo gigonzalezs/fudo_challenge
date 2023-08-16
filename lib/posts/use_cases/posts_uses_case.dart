@@ -3,6 +3,7 @@ import 'package:spread/spread.dart';
 
 import '../../services.dart';
 import '../../users/model/user.dart';
+import '../model/post.dart';
 import '../states/post_states.dart';
 
 class LoadPostsUseCase extends UseCase with StateEmitter {
@@ -19,5 +20,16 @@ class LoadPostsUseCase extends UseCase with StateEmitter {
       error: error,
       stackTrace: stackTrace
     )));
+  }
+}
+
+class CreatePostUseCase extends UseCase with StateEmitter {
+  final Post post;
+
+  CreatePostUseCase({required this.post});
+
+  @override
+  void execute() {
+    // TODO: implement execute
   }
 }
